@@ -1,0 +1,28 @@
+version: "0.1"
+runson: win
+autosplit: true
+concurrency: 2
+
+env:
+  BASE_URL: "https://www.lambdatest.com"
+
+secrets:
+  LT_USERNAME: ${LT_USERNAME}
+  LT_ACCESS_KEY: ${LT_ACCESS_KEY}
+
+cacheKey: playwright-cache
+cacheDirectories:
+  - node_modules
+
+pre:
+  - npm ci
+  - npx playwright install
+
+run:
+  - npx playwright test
+
+artifacts:
+  - name: Playwright-Artifacts
+    path:
+      - playwright-report/
+      - test-results/
